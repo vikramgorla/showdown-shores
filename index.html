@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏝️ Showdown Shores - Lobby</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="background">
+        <div class="waves"></div>
+        <div class="palm-tree left"></div>
+        <div class="palm-tree right"></div>
+    </div>
+
+    <div class="container">
+        <!-- Header with currency -->
+        <header class="header">
+            <div class="currency">
+                <span class="shore-coins">💰 <span id="shoreCoins">1,250</span> Shore Coins</span>
+                <button class="buy-btn" id="buyCoins">+</button>
+                <span class="premium-coins">🏝️ <span id="premiumCoins">50</span> SC</span>
+            </div>
+            <div class="player-name">
+                <span id="playerName">CoconutKing99</span>
+                <button class="edit-name" id="editName">✏️</button>
+            </div>
+            <div class="music-toggle">
+                <button id="musicToggle">🎵</button>
+            </div>
+        </header>
+
+        <!-- Main Lobby Content -->
+        <main class="lobby">
+            <div class="customization-tabs">
+                <button class="tab active" data-tab="skins">
+                    <div class="tab-icon">👕</div>
+                    <div class="tab-label">SKINS</div>
+                </button>
+                <button class="tab" data-tab="powers">
+                    <div class="tab-icon">⚡</div>
+                    <div class="tab-label">POWERS</div>
+                </button>
+                <button class="tab" data-tab="weapons">
+                    <div class="tab-icon">🔫</div>
+                    <div class="tab-label">WEAP</div>
+                </button>
+            </div>
+
+            <!-- Character Preview -->
+            <div class="character-preview">
+                <div class="character" id="character">
+                    <div class="character-body">🏄‍♂️</div>
+                </div>
+                <div class="rotate-hint">🔄 Click to Rotate</div>
+            </div>
+
+            <div class="customization-tabs bottom">
+                <button class="tab" data-tab="accessories">
+                    <div class="tab-icon">🎩</div>
+                    <div class="tab-label">ACCESS</div>
+                </button>
+                <button class="tab" data-tab="emotes">
+                    <div class="tab-icon">💃</div>
+                    <div class="tab-label">EMOTES</div>
+                </button>
+                <button class="tab" data-tab="more">
+                    <div class="tab-icon">⚙️</div>
+                    <div class="tab-label">MORE</div>
+                </button>
+            </div>
+
+            <!-- Customization Panel -->
+            <div class="customization-panel" id="customizationPanel">
+                <h3>🍉 Select Your Skin</h3>
+                <div class="items-grid">
+                    <div class="item" data-item="watermelon">🍉 Melon</div>
+                    <div class="item" data-item="banana">🍌 Banana</div>
+                    <div class="item" data-item="coconut">🥥 Coconut</div>
+                    <div class="item" data-item="pineapple">🍍 Pineapple</div>
+                    <div class="item locked" data-item="mango">🥭 Mango<br><small>500 coins</small></div>
+                    <div class="item locked" data-item="strawberry">🍓 Berry<br><small>Lvl 5</small></div>
+                </div>
+            </div>
+
+            <!-- Ready Button -->
+            <button class="ready-btn" id="readyBtn">
+                ▶️ READY TO PLAY
+            </button>
+
+            <!-- Attack Cooldown Display -->
+            <div class="attack-section">
+                <button class="attack-btn" id="attackBtn">
+                    ⚔️ ATTACK
+                </button>
+                <div class="cooldown-bar">
+                    <div class="cooldown-fill" id="cooldownFill"></div>
+                    <span class="cooldown-text" id="cooldownText">Ready!</span>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="players-online">👥 <span id="playersOnline">12</span> Players Online</div>
+            <div style="margin-top: 15px;">
+                <a href="credits.html" style="color: white; text-decoration: none; font-size: 18px; font-weight: bold; background: rgba(255, 255, 255, 0.2); padding: 10px 20px; border-radius: 15px; display: inline-block; transition: all 0.3s;" onmouseover="this.style.background='rgba(255, 255, 255, 0.3)'; this.style.transform='scale(1.05)'" onmouseout="this.style.background='rgba(255, 255, 255, 0.2)'; this.style.transform='scale(1)'">
+                    ⭐ JOM Credits ⭐
+                </a>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Game Screen -->
+    <div class="game-screen" id="gameScreen">
+        <div class="game-header">
+            <div class="game-stats">
+                <span class="health">❤️ <span id="playerHealth">100</span></span>
+                <span class="score">⭐ Score: <span id="playerScore">0</span></span>
+                <span class="timer">⏱️ <span id="gameTimer">60</span>s</span>
+            </div>
+            <button class="exit-game" id="exitGame">❌ Exit</button>
+        </div>
+        
+        <canvas id="gameCanvas"></canvas>
+        
+        <div class="game-controls">
+            <div class="controls-info">
+                <p>🎮 Use Arrow Keys or WASD to move</p>
+                <p>🖱️ Click or SPACE to attack</p>
+            </div>
+            <div class="game-cooldown">
+                <div class="game-cooldown-bar">
+                    <div class="game-cooldown-fill" id="gameCooldownFill"></div>
+                </div>
+                <span id="gameCooldownText">Ready!</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Shop Modal -->
+    <div class="modal" id="shopModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>🏝️ Shore Coin Shop</h2>
+            <div class="shop-items">
+                <div class="shop-item">
+                    <div class="amount">100 SC</div>
+                    <div class="price">$0.99</div>
+                    <button class="purchase-btn">Buy</button>
+                </div>
+                <div class="shop-item featured">
+                    <div class="badge">BEST VALUE</div>
+                    <div class="amount">500 SC</div>
+                    <div class="price">$4.99</div>
+                    <button class="purchase-btn">Buy</button>
+                </div>
+                <div class="shop-item">
+                    <div class="amount">1000 SC</div>
+                    <div class="price">$9.99</div>
+                    <button class="purchase-btn">Buy</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Name Change Modal -->
+    <div class="modal" id="nameModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>✏️ Change Name</h2>
+            <input type="text" id="newName" placeholder="Enter new name" maxlength="16">
+            <div class="name-options">
+                <button class="option-btn free" id="freeChange">
+                    <div>Free Change</div>
+                    <small>Available in 13 days</small>
+                </button>
+                <button class="option-btn premium" id="instantChange">
+                    <div>Instant Change</div>
+                    <small>500 Shore Coins</small>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

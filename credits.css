@@ -1,0 +1,389 @@
+/* Credits Page Styles */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', Arial, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.credits-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    position: relative;
+    z-index: 10;
+}
+
+/* Header Section */
+.header-section {
+    text-align: center;
+    margin-bottom: 60px;
+    animation: fadeInDown 1s ease-out;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.main-title {
+    font-size: 72px;
+    color: white;
+    text-shadow: 
+        4px 4px 0px #FF6B35,
+        8px 8px 0px #4ECDC4,
+        12px 12px 20px rgba(0, 0, 0, 0.3);
+    margin-bottom: 20px;
+    animation: titlePulse 2s ease-in-out infinite;
+}
+
+@keyframes titlePulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.subtitle {
+    font-size: 32px;
+    color: #FFD700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    margin-bottom: 15px;
+    animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+.date {
+    font-size: 28px;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    background: rgba(255, 255, 255, 0.2);
+    padding: 10px 30px;
+    border-radius: 50px;
+    display: inline-block;
+    backdrop-filter: blur(10px);
+}
+
+/* Team Section */
+.team-section {
+    margin-bottom: 60px;
+}
+
+.team-title {
+    font-size: 48px;
+    color: white;
+    text-align: center;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+    margin-bottom: 40px;
+    animation: fadeIn 1.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.team-member {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 25px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.team-member::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transform: rotate(45deg);
+    animation: shine 3s infinite;
+}
+
+@keyframes shine {
+    0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+}
+
+.team-member:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+}
+
+.member-emoji {
+    font-size: 80px;
+    margin-bottom: 15px;
+    animation: rotate 4s linear infinite;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.team-member:hover .member-emoji {
+    animation: bounce 0.5s ease;
+}
+
+.member-name {
+    font-size: 32px;
+    font-weight: bold;
+    color: #FF6B35;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.member-role {
+    font-size: 18px;
+    color: #4ECDC4;
+    font-weight: bold;
+}
+
+/* Bounce Animation */
+.bounce {
+    animation: bounceIn 1s ease-out;
+}
+
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+.delay-5 { animation-delay: 0.5s; }
+
+@keyframes bounceIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.3) translateY(100px);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+    70% {
+        transform: scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Message Section */
+.message-section {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.message-box {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 30px;
+    padding: 40px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+}
+
+.message {
+    font-size: 28px;
+    color: #FF6B35;
+    margin: 15px 0;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Floating Emojis */
+.emoji-decoration {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.float-emoji {
+    position: absolute;
+    font-size: 40px;
+    animation: float 10s infinite ease-in-out;
+    opacity: 0.7;
+}
+
+.float-emoji:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; }
+.float-emoji:nth-child(2) { left: 80%; top: 10%; animation-delay: 1s; }
+.float-emoji:nth-child(3) { left: 30%; top: 60%; animation-delay: 2s; }
+.float-emoji:nth-child(4) { left: 70%; top: 70%; animation-delay: 3s; }
+.float-emoji:nth-child(5) { left: 20%; top: 80%; animation-delay: 4s; }
+.float-emoji:nth-child(6) { left: 90%; top: 40%; animation-delay: 5s; }
+.float-emoji:nth-child(7) { left: 50%; top: 15%; animation-delay: 0.5s; }
+.float-emoji:nth-child(8) { left: 15%; top: 40%; animation-delay: 1.5s; }
+.float-emoji:nth-child(9) { left: 85%; top: 80%; animation-delay: 2.5s; }
+.float-emoji:nth-child(10) { left: 40%; top: 90%; animation-delay: 3.5s; }
+.float-emoji:nth-child(11) { left: 60%; top: 30%; animation-delay: 4.5s; }
+.float-emoji:nth-child(12) { left: 5%; top: 50%; animation-delay: 5.5s; }
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    25% {
+        transform: translateY(-20px) rotate(5deg);
+    }
+    50% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    75% {
+        transform: translateY(20px) rotate(-5deg);
+    }
+}
+
+/* JOM Badge */
+.jom-badge {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 100;
+}
+
+.badge-content {
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    border: 4px solid white;
+    animation: badgePulse 3s ease-in-out infinite;
+}
+
+@keyframes badgePulse {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.1) rotate(5deg); }
+}
+
+.badge-icon {
+    font-size: 48px;
+    margin-bottom: 5px;
+}
+
+.badge-text {
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.badge-year {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Back Button */
+.back-button-container {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.back-button {
+    display: inline-block;
+    background: linear-gradient(135deg, #FF6B35, #FF9ECD);
+    color: white;
+    text-decoration: none;
+    font-size: 28px;
+    font-weight: bold;
+    padding: 20px 50px;
+    border-radius: 50px;
+    box-shadow: 0 10px 30px rgba(255, 107, 53, 0.5);
+    transition: all 0.3s ease;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.back-button:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 15px 40px rgba(255, 107, 53, 0.7);
+}
+
+/* Footer Emojis */
+.footer-emojis {
+    text-align: center;
+    font-size: 32px;
+    line-height: 1.8;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .main-title {
+        font-size: 48px;
+    }
+    
+    .subtitle {
+        font-size: 24px;
+    }
+    
+    .team-title {
+        font-size: 36px;
+    }
+    
+    .team-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .message {
+        font-size: 20px;
+    }
+    
+    .jom-badge {
+        position: relative;
+        top: 0;
+        right: 0;
+        margin-bottom: 30px;
+        display: flex;
+        justify-content: center;
+    }
+}
