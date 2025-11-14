@@ -19,6 +19,9 @@ body {
     background: linear-gradient(180deg, #87CEEB 0%, #4ECDC4 100%);
     min-height: 100vh;
     overflow-x: hidden;
+    touch-action: none;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 /* Animated Background */
@@ -655,6 +658,7 @@ body {
     background: transparent;
     display: block;
     margin: 0 auto;
+    touch-action: none;
 }
 
 .game-controls {
@@ -675,6 +679,18 @@ body {
     font-weight: bold;
     color: var(--dark-text);
     font-size: 14px;
+}
+
+/* Mobile touch controls */
+@media (max-width: 768px) {
+    .controls-info {
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .controls-info p {
+        font-size: 12px;
+    }
 }
 
 .game-cooldown {

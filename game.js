@@ -33,8 +33,13 @@ class Game {
         this.mouseX = 0;
         this.mouseY = 0;
         
+        // Touch controls
+        this.touchJoystick = { active: false, startX: 0, startY: 0, currentX: 0, currentY: 0 };
+        this.touchMove = { x: 0, y: 0 };
+        
         // Setup controls
         this.setupControls();
+        this.setupTouchControls();
         
         // Spawn enemies
         this.spawnEnemies();
@@ -74,6 +79,68 @@ class Game {
         this.canvas.addEventListener('click', () => {
             this.attack();
         });
+    }
+    
+    setupTouchControls() {
+        // Touch start - for joystick
+        this.canvas.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const rect = this.canvas.getBoundingClientRect();
+            const x = touch.clientX - rect.left;
+            const y = touch.clientY - rect.top;
+            
+            // Left side = movement joystick
+            if (x < this.canvas.width / 2) {
+                this.touchJoystick.active = true;
+                this.touchJoystick.startX = x;
+                this.touchJoystick.startY = y;
+                this.touchJoystick.currentX = x;
+                this.touchJoystick.currentY = y;
+            } else {
+                // Right side = attack
+                this.attack();
+            }
+        });
+        
+        // Touch move - update joystick
+        this.canvas.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+            if (this.touchJoystick.active && e.touches.length > 0) {
+                const touch = e.touches[0];
+                const rect = this.canvas.getBoundingClientRect();
+                this.touchJoystick.currentX = touch.clientX - rect.left;
+                this.touchJoystick.currentY = touch.clientY - rect.top;
+                
+                // Calculate movement vector
+                const dx = this.touchJoystick.currentX - this.touchJoystick.startX;
+                const dy = this.touchJoystick.currentY - this.touchJoystick.startY;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                const maxDistance = 80;
+                
+                if (distance > 0) {
+                    const normalizedDistance = Math.min(distance, maxDistance) / maxDistance;
+                    this.touchMove.x = (dx / distance) * normalizedDistance;
+                    this.touchMove.y = (dy / distance) * normalizedDistance;
+                }
+            }
+        });
+        
+        // Touch end - reset joystick
+        this.canvas.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            this.touchJoystick.active = false;
+            this.touchMove.x = 0;
+            this.touchMove.y = 0;
+        });
+        
+        // Update mouse position for touch (for attack direction)
+        this.canvas.addEventListener('touchstart', (e) => {
+            const touch = e.touches[0];
+            const rect = this.canvas.getBoundingClientRect();
+            this.mouseX = touch.clientX - rect.left;
+            this.mouseY = touch.clientY - rect.top;
+        }, { passive: false });
     }
     
     spawnEnemies() {
@@ -187,13 +254,18 @@ class Game {
         let moveX = 0;
         let moveY = 0;
         
+        // Keyboard controls
         if (this.keys['arrowup'] || this.keys['w']) moveY -= 1;
         if (this.keys['arrowdown'] || this.keys['s']) moveY += 1;
         if (this.keys['arrowleft'] || this.keys['a']) moveX -= 1;
         if (this.keys['arrowright'] || this.keys['d']) moveX += 1;
         
-        // Normalize diagonal movement
-        if (moveX !== 0 && moveY !== 0) {
+        // Touch controls (override keyboard if active)
+        if (this.touchJoystick.active) {
+            moveX = this.touchMove.x;
+            moveY = this.touchMove.y;
+        } else if (moveX !== 0 && moveY !== 0) {
+            // Normalize diagonal movement for keyboard only
             moveX *= 0.707;
             moveY *= 0.707;
         }
@@ -382,6 +454,28 @@ class Game {
         this.ctx.fillRect(this.player.x - playerBarWidth/2, this.player.y - this.player.size - 10, playerBarWidth, playerBarHeight);
         this.ctx.fillStyle = '#2ecc71';
         this.ctx.fillRect(this.player.x - playerBarWidth/2, this.player.y - this.player.size - 10, playerBarWidth * playerHealthPercent, playerBarHeight);
+        
+        // Draw touch joystick if active
+        if (this.touchJoystick.active) {
+            // Outer circle
+            this.ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
+            this.ctx.lineWidth = 3;
+            this.ctx.beginPath();
+            this.ctx.arc(this.touchJoystick.startX, this.touchJoystick.startY, 60, 0, Math.PI * 2);
+            this.ctx.stroke();
+            
+            // Inner circle (joystick position)
+            this.ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+            this.ctx.beginPath();
+            this.ctx.arc(this.touchJoystick.currentX, this.touchJoystick.currentY, 30, 0, Math.PI * 2);
+            this.ctx.fill();
+            
+            // Center dot
+            this.ctx.fillStyle = 'rgba(78, 205, 196, 0.8)';
+            this.ctx.beginPath();
+            this.ctx.arc(this.touchJoystick.startX, this.touchJoystick.startY, 10, 0, Math.PI * 2);
+            this.ctx.fill();
+        }
     }
     
     gameLoop() {

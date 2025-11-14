@@ -24,13 +24,16 @@
 
 **Particle System**: Explosion/attack effects use simple physics arrays with lifetime counters. Updated and rendered each frame, removed when `lifetime <= 0`.
 
+**Touch Controls**: Virtual joystick on left side of canvas for movement, right side tap for attacks. Uses `touchstart`/`touchmove`/`touchend` events with vector normalization. Joystick visually rendered with semi-transparent circles during touch.
+
 ## Developer Workflows
 
 ### Testing the Game
 1. Open `index.html` directly in browser (no server needed)
 2. Click "▶️ READY TO PLAY" to launch game canvas
-3. Use WASD/Arrows to move, click/space to attack
-4. Exit with "❌ Exit" button to return to lobby
+3. **Desktop**: Use WASD/Arrows to move, click/space to attack
+4. **Mobile/Touch**: Touch left side of screen for virtual joystick movement, touch right side to attack
+5. Exit with "❌ Exit" button to return to lobby
 
 ### Adding New Customization Items
 Edit the `panels` object in `updateCustomizationPanel()` in `script.js`. Format:
